@@ -98,21 +98,6 @@ export class Plot3DView {
     ground.receiveShadow = true;
     this.contentGroup.add(ground);
 
-    const roadWidth = 10;
-    if (depth >= 35) {
-      const road = new THREE.Mesh(
-        new THREE.BoxGeometry(width + 6, 0.08, roadWidth),
-        new THREE.MeshStandardMaterial({
-          color: 0x6e7477,
-          roughness: 0.95,
-          metalness: 0,
-        }),
-      );
-      road.position.set(centerX, 0.01, -25);
-      road.receiveShadow = true;
-      this.contentGroup.add(road);
-    }
-
     for (const plot of project.plots) {
       if (!visibleStatuses.has(plot.status) || plot.polygon.length < 3) continue;
 
