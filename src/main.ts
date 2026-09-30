@@ -47,6 +47,7 @@ app.innerHTML = `
           <div id="status-filters" class="status-filters"></div>
           <div class="stage-tools">
             <span id="drawing-hint" class="drawing-hint"></span>
+            <button type="button" class="text-button" id="new-project">New blank</button>
             <button type="button" class="text-button" id="clear-background">Clear plan</button>
             <button type="button" class="text-button" id="reset-demo">Reset demo</button>
           </div>
@@ -92,6 +93,25 @@ getElement("draw-plot").addEventListener("click", () => {
 getElement("upload-plan").addEventListener("click", () => planInput.click());
 getElement("import-project").addEventListener("click", () => projectInput.click());
 getElement("export-project").addEventListener("click", exportProject);
+
+getElement("new-project").addEventListener("click", () => {
+  const requestedName = window.prompt("Project name", "Untitled Plot Project");
+  if (requestedName === null) return;
+  const name = requestedName.trim() || "Untitled Plot Project";
+
+  project = {
+    id: `${slugify(name)}-${Date.now().toString(36)}`,
+    name,
+    currency: "IDR",
+    unitScaleM: 1,
+    plots: [],
+  };
+  selectedPlotId = undefined;
+  drawing = false;
+  draftPoints = [];
+  saveProject();
+  render();
+});
 
 getElement("clear-background").addEventListener("click", () => {
   project.backgroundImage = undefined;
