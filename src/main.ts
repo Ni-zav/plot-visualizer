@@ -10,7 +10,7 @@ const app = document.querySelector<HTMLDivElement>("#app");
 if (!app) throw new Error("Missing #app");
 
 let project = loadProject();
-let selectedPlotId = project.plots[0]?.id;
+let selectedPlotId: string | undefined = project.plots[0]?.id;
 let mode: "2d" | "3d" = "2d";
 let drawing = false;
 let draftPoints: Point2[] = [];
